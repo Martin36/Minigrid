@@ -289,6 +289,11 @@ class RGBImgObsWrapper(ObservationWrapper):
     """
     Wrapper to use fully observable RGB image as observation,
     This can be used to have the agent to solve the gridworld in pixel space.
+    
+    Args:
+        env (gym.Env): The environment to apply the wrapper
+        tile_size (int): The size of each cell in the grid
+        incl_state (bool): Whether to include the grid representation of the state in the observation
 
     Example:
         >>> import gymnasium as gym
@@ -304,10 +309,11 @@ class RGBImgObsWrapper(ObservationWrapper):
         ![RGBImgObsWrapper](../figures/lavacrossing_RGBImgObsWrapper.png)
     """
 
-    def __init__(self, env, tile_size=8):
+    def __init__(self, env, tile_size=8, incl_state=False):
         super().__init__(env)
 
         self.tile_size = tile_size
+        self.incl_state = incl_state
 
         new_image_space = spaces.Box(
             low=0,
@@ -328,7 +334,10 @@ class RGBImgObsWrapper(ObservationWrapper):
         rgb_img = self.unwrapped.get_frame(
             highlight=self.unwrapped.highlight, tile_size=self.tile_size
         )
-
+        
+        if self.incl_state:
+            return {**obs, "obs": obs["image"], "image": rgb_img}
+        
         return {**obs, "image": rgb_img}
 
 

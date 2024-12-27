@@ -398,3 +398,14 @@ def test_non_square_RGBIMgObsWrapper():
     env = RGBImgObsWrapper(gym.make("MiniGrid-BlockedUnlockPickup-v0"))
     obs, info = env.reset()
     assert env.observation_space["image"].shape == obs["image"].shape
+
+
+def test_incl_state():
+    env1 = RGBImgObsWrapper(gym.make("MiniGrid-Empty-5x5-v0"), incl_state=True)
+    env2 = RGBImgObsWrapper(gym.make("MiniGrid-Empty-5x5-v0"))
+
+    obs1, _ = env1.reset(seed=0)
+    obs2, _ = env2.reset(seed=0)
+
+    assert "obs" in obs1
+    assert "obs" not in obs2
