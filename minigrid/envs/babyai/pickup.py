@@ -299,8 +299,6 @@ class PickupLoc2(LevelGen):
         col = instr.desc.color
         type = instr.desc.type
         agent_pos = (int(self.agent_pos[0]), int(self.agent_pos[1]))
-        # Apparently, the agent pos is expressed as (col, row)
-        # agent_pos = (int(self.agent_pos[1]), int(self.agent_pos[0]))
         
         obj_coords = self.get_obj_coords(loc, agent_pos)
         
@@ -325,7 +323,6 @@ class PickupLoc2(LevelGen):
         if type == "box":
             obj = Box(color=col)
         
-        # print("Object coordinates: ", obj_coords)
         # Add the object to the room
         self.put_obj(obj, obj_coords[0], obj_coords[1])
     
@@ -409,10 +406,6 @@ class PickupLoc2(LevelGen):
             counter -= 1
             if counter == 0:
                 raise RejectSampling("object can only be placed in agent's position")
-        
-        # print(f"Agent position: {agent_pos}")
-        # print(f"x range: {x_range}")
-        # print(f"y range: {y_range}")
         
         return obj_x, obj_y
 
