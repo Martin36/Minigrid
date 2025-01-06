@@ -32,6 +32,7 @@ from minigrid.envs.babyai.pickup import (
     PickupAbove,
     PickupDist,
     PickupLoc,
+    PickupLoc2,
     UnblockPickup,
 )
 from minigrid.envs.babyai.putnext import PutNext, PutNextLocal

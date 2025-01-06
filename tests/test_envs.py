@@ -348,3 +348,101 @@ def test_pprint_grid(env_id="MiniGrid-Empty-8x8-v0"):
 
     env.reset()
     assert isinstance(env.unwrapped.pprint_grid(), str)
+    
+
+def test_get_obj_coords():
+    env = gym.make("BabyAI-PickupLoc2-v0")
+    env = env.env.env
+    
+    loc = "left"
+    agent_pos = (3, 3)
+    
+    # facing right
+    env.agent_dir = 0
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert agent_pos[1] <= obj_coords[1]
+    
+    # facing left
+    env.agent_dir = 2
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert obj_coords[1] <= agent_pos[1]
+    
+    # facing up
+    env.agent_dir = 3
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert agent_pos[0] <= obj_coords[0]
+    
+    # facing down
+    env.agent_dir = 1
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert obj_coords[0] <= agent_pos[0]
+    
+    # Test for right
+    loc = "right"
+    
+    # facing right
+    env.agent_dir = 0
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert obj_coords[1] <= agent_pos[1]
+    
+    # facing left
+    env.agent_dir = 2
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert agent_pos[1] <= obj_coords[1]
+    
+    # facing up
+    env.agent_dir = 3
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert obj_coords[0] <= agent_pos[0]
+    
+    # facing down
+    env.agent_dir = 1
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert agent_pos[0] <= obj_coords[0]
+    
+    # Test for front
+    loc = "front"
+
+    # facing right
+    env.agent_dir = 0
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert obj_coords[0] <= agent_pos[0]
+    
+    # facing left
+    env.agent_dir = 2
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert agent_pos[0] <= obj_coords[0]
+    
+    # facing up
+    env.agent_dir = 3
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert agent_pos[1] <= obj_coords[1]
+    
+    # facing down
+    env.agent_dir = 1
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert obj_coords[1] <= agent_pos[1]
+    
+    # Test for behind
+    loc = "behind"
+    
+    # facing right
+    env.agent_dir = 0
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert agent_pos[0] <= obj_coords[0]
+    
+    # facing left
+    env.agent_dir = 2
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert obj_coords[0] <= agent_pos[0]
+    
+    # facing up
+    env.agent_dir = 3
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert obj_coords[1] <= agent_pos[1]
+    
+    # facing down
+    env.agent_dir = 1
+    obj_coords = env.get_obj_coords(loc, agent_pos)
+    assert agent_pos[1] <= obj_coords[1]
+        

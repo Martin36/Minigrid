@@ -40,6 +40,7 @@ class LevelGen(RoomGridLevel):
         implicit_unlock=True,
         action_kinds=["goto", "pickup", "open", "putnext"],
         instr_kinds=["action", "and", "seq"],
+        always_incl_loc=False,
         **kwargs,
     ):
         self.num_dists = num_dists
@@ -49,7 +50,8 @@ class LevelGen(RoomGridLevel):
         self.implicit_unlock = implicit_unlock
         self.action_kinds = action_kinds
         self.instr_kinds = instr_kinds
-
+        self.always_incl_loc = always_incl_loc    # Always include location for the mission statement
+         
         self.locked_room = None
 
         super().__init__(
@@ -129,7 +131,8 @@ class LevelGen(RoomGridLevel):
             type = self._rand_elem(types)
 
             loc = None
-            if self.locations and self._rand_bool():
+            if self.locations and self._rand_bool() or \
+               self.always_incl_loc:
                 loc = self._rand_elem(LOC_NAMES)
 
             desc = ObjDesc(type, color, loc)

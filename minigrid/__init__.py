@@ -855,6 +855,11 @@ def register_minigrid_envs():
     )
 
     register(
+        id="BabyAI-PickupLoc2-v0",
+        entry_point="minigrid.envs.babyai:PickupLoc2",
+    )
+
+    register(
         id="BabyAI-PickupDist-v0",
         entry_point="minigrid.envs.babyai:PickupDist",
     )
