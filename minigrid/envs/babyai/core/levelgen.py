@@ -38,8 +38,8 @@ class LevelGen(RoomGridLevel):
         locations=True,
         unblocking=True,
         implicit_unlock=True,
-        action_kinds=["goto", "pickup", "open", "putnext"],
-        instr_kinds=["action", "and", "seq"],
+        action_kinds=("goto", "pickup", "open", "putnext"),
+        instr_kinds=("action", "and", "seq"),
         always_incl_loc=False,
         **kwargs,
     ):
