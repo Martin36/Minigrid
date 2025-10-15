@@ -294,10 +294,11 @@ class PickupLoc2(LevelGen):
         
         # Add one more object of the same type and color as the object 
         # in the instruction, but in an incorrect location
+        assert type(self.instrs) is PickupInstr
         instr: PickupInstr = self.instrs
         loc = instr.desc.loc
         col = instr.desc.color
-        type = instr.desc.type
+        t = instr.desc.type
         agent_pos = (int(self.agent_pos[0]), int(self.agent_pos[1]))
         # Apparently, the agent pos is expressed as (col, row)
         # agent_pos = (int(self.agent_pos[1]), int(self.agent_pos[0]))
@@ -307,7 +308,7 @@ class PickupLoc2(LevelGen):
         # Make sure that the object is not placed in the same cell 
         # as another object
         counter = 10
-        while self.grid.get(*obj_coords) != None :
+        while self.grid.get(*obj_coords) is not None:
             obj_coords = self.get_obj_coords(loc, agent_pos)
             counter -= 1
             if counter == 0:
@@ -318,11 +319,11 @@ class PickupLoc2(LevelGen):
             col = self._rand_elem(COLOR_NAMES)
             
         # Create the new object
-        if type == "key":
+        if t == "key":
             obj = Key(color=col)
-        if type == "ball":
+        if t == "ball":
             obj = Ball(color=col)
-        if type == "box":
+        if t == "box":
             obj = Box(color=col)
         
         # print("Object coordinates: ", obj_coords)
