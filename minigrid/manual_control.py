@@ -120,7 +120,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    env: MiniGridEnv = gym.make(
+    env: MiniGridEnv = gym.make( # type: ignore
         args.env_id,
         tile_size=args.tile_size,
         render_mode="human",
@@ -132,8 +132,8 @@ if __name__ == "__main__":
     # TODO: check if this can be removed
     if args.agent_view:
         print("Using agent view")
-        env = RGBImgPartialObsWrapper(env, args.tile_size)
-        env = ImgObsWrapper(env)
+        env = RGBImgPartialObsWrapper(env, args.tile_size) # type: ignore
+        env = ImgObsWrapper(env) # type: ignore
 
     manual_control = ManualControl(env, seed=args.seed)
     manual_control.start()
