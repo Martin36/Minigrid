@@ -506,6 +506,12 @@ def register_minigrid_envs():
         entry_point="minigrid.envs:ObstructedMaze_Full_V1",
     )
 
+    register(
+        id="MiniGrid-ObstructedMaze-Full-v1-NoBoxes",
+        entry_point="minigrid.envs:ObstructedMaze_Full_V1",
+        kwargs={"key_in_box": False},
+    )
+
     # Playground
     # ----------------------------------------
 
